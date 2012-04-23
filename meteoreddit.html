@@ -3,9 +3,19 @@
 </head>
 
 <body>
-  <h1>Meteoreddit</h1>
-  <div id="outer">
-    {{> articles}}
+  <div class="container_16">
+    <h1>Meteoreddit</h1>
+    <div id="content" class="grid_12">
+      {{> articles}}
+    </div>
+    <div id="sidebar" class="grid_4">
+      <div class="new_article">
+	<h2>Post</h2>
+	<label>Title:</label><input type="text" id="title" /><br/>
+	<label>URL:</label><input type="text" id="url" /><br/>
+	<input type="button" id="post" value="Post"/>
+      </div>
+    </div>
   </div>
 </body>
 
@@ -15,22 +25,18 @@
       {{> article}}
     {{/each}}
   </div>
-
-  <div class="new_article">
-    <label>Title:</label><input type="text" id="title" />
-    <label>URL:</label><input type="text" id="url" />
-    <input type="button" id="post" value="Post"/>
-  </div>
 </template>
 
 <template name="article">
   <div class="article" data-id="{{_id}}">
-    <div class="scorearea">
+    <div class="scorearea grid_1">
       <div class="arrow up"/>
       <div class="score">{{score}}</div>
       <div class="arrow down"/>
     </div>
-    <a href="{{url}}" target="_blank"><span class="name">{{title}}</span></a>
+    <div class="article">
+      <a href="{{url}}" target="_blank"><span class="name">{{title}}</span></a>
+    </div>
   </div>
 </template>
 

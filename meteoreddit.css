@@ -1,7 +1,6 @@
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, san-serif;
     font-weight: 200;
-    margin: 50px 0;
     padding: 0;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -10,9 +9,8 @@ body {
     user-select: none;
 }
 
-#outer {
-    width: 600px;
-    margin: 0 auto;    
+.new_article {
+    float: right;
 }
 
 .article {
@@ -25,10 +23,6 @@ body {
     display: inline-block;
     width: 300px;
     font-size: 1.75em;
-}
-
-.article.selected {
-    background-color: yellow;
 }
 
 .details, .none {
@@ -45,15 +39,8 @@ body {
     color: #777;
 }
 
-.inc {
-  cursor: pointer;
-}
-
 .scorearea {
-    float: left;
     text-align: center;
-    width: 4em;
-    clear: both;
 }
 
 .scorearea .score {
