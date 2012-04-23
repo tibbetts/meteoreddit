@@ -1,0 +1,36 @@
+<head>
+  <title>Meteoreddit</title>
+</head>
+
+<body>
+  <h1>Meteoreddit</h1>
+  <div id="outer">
+    {{> articles}}
+  </div>
+</body>
+
+<template name="articles">
+  <div class="articles">
+    {{#each articles}}
+      {{> article}}
+    {{/each}}
+  </div>
+
+  <div class="new_article">
+    <label>Title:</label><input type="text" id="title" />
+    <label>URL:</label><input type="text" id="url" />
+    <input type="button" id="post" value="Post"/>
+  </div>
+</template>
+
+<template name="article">
+  <div class="article" data-id="{{_id}}">
+    <div class="scorearea">
+      <div class="arrow up"/>
+      <div class="score">{{score}}</div>
+      <div class="arrow down"/>
+    </div>
+    <a href="{{url}}" target="_blank"><span class="name">{{title}}</span></a>
+  </div>
+</template>
+
