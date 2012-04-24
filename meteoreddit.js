@@ -1,11 +1,12 @@
 Articles = new Meteor.Collection("articles");
+Users = new Meteor.Collection("users");
 
 if (Meteor.is_client) {
   Template.articles.articles = function () {
     return Articles.find({}, {sort: {score: -1, title: 1}});
   };
 
-  Template.articles.events = {
+  Template.new_article.events = {
     'click #post': function () {
 	var title = $('#title').val();
 	var url = $('#url').val();
@@ -22,6 +23,28 @@ if (Meteor.is_client) {
 	  Articles.update(this._id, {$inc: {score: -1}});
       },
   };
+
+    Template.loginout.username = function () {
+	if (Session.get('user')) {
+	    return Session.get('user').username;
+	} else {
+	    return undefined;
+	}
+    };
+
+    Template.loginout.events = {
+	'submit #login': function (evt) {
+	    var username = $("#login #username").val();
+	    console.log("Username is " + username);
+	    evt.preventDefault();
+	    var user = Users.findOne({username: username});
+	    if (!user) {
+		user = Users.insert({username: username});
+	    }
+	    Session.set('user', user);
+	}
+    };
+
 }
 
 // On server startup, create some stories if empty.

@@ -4,20 +4,43 @@
 
 <body>
   <div class="container_16">
-    <h1>Meteoreddit</h1>
     <div id="content" class="grid_12">
+    <h1>Meteoreddit</h1>
       {{> articles}}
     </div>
     <div id="sidebar" class="grid_4">
-      <div class="new_article">
-	<h2>Post</h2>
-	<label>Title:</label><input type="text" id="title" /><br/>
-	<label>URL:</label><input type="text" id="url" /><br/>
-	<input type="button" id="post" value="Post"/>
-      </div>
+      {{> loginout }}
+      {{> new_article }}
     </div>
   </div>
 </body>
+
+<template name="loginout">
+  {{#if username}}
+  <div class="logout">
+    <h2>Logged in as {{username}}</h2>
+    <form id="logout">
+      <input type="submit" value="logout"/>
+    </form>
+  </div>
+  {{else}}
+  <div class="login">
+    <h2>Login</h2>
+    <form id="login">
+      <label>Username:</label><input type="text" id="username"/><br/>
+    </form>
+  </div>
+  {{/if}}
+</template>
+
+<template name="new_article">
+  <div class="new_article">
+    <h2>Post</h2>
+    <label>Title:</label><input type="text" id="title" /><br/>
+    <label>URL:</label><input type="text" id="url" /><br/>
+    <input type="button" id="post" value="Post"/>
+  </div>
+</template>
 
 <template name="articles">
   <div class="articles">

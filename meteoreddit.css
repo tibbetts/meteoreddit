@@ -9,10 +9,6 @@ body {
     user-select: none;
 }
 
-.new_article {
-    float: right;
-}
-
 .article {
     cursor: pointer;
     padding: 5px;
