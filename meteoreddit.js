@@ -1,7 +1,12 @@
 Articles = new Meteor.Collection("articles");
+Comments = new Meteor.Collection("comments");
 Users = new Meteor.Collection("users");
 
 if (Meteor.is_client) {
+    Template.main_content.selected_article = function() {
+	return Session.get("selected_article");
+    }
+
   Template.articles.articles = function () {
     return Articles.find({}, {sort: {score: -1, title: 1}});
   };
@@ -22,6 +27,10 @@ if (Meteor.is_client) {
       'click .arrow.down': function () {
 	  Articles.update(this._id, {$inc: {score: -1}});
       },
+      'click a.comments': function (evt) {
+	  evt.preventDefault();
+	  Session.set("selected_article", this._id);
+      }
   };
 
     Template.loginout.username = function () {
@@ -44,6 +53,30 @@ if (Meteor.is_client) {
 	    Session.set('user', user);
 	}
     };
+
+    Template.comments.events = {
+	'click a.backs': function (evt) {
+	    evt.preventDefault();
+	    Session.set("selected_article", false);
+	    return false;
+	},
+	'click #post_comment': function (evt) {
+	    evt.preventDefault();
+	    var comment = $("form#comment #text").val();
+	    var articleId = Session.get("selected_article");
+	    Comments.insert({article: articleId,
+			     text: comment});
+	    Articles.update(articleId, {$inc: {comment_count: 1}});
+
+	}
+    };
+    Template.comments.article = function () {
+	return Articles.findOne(Session.get("selected_article"));
+    }
+    Template.comments.comments = function() {
+	return Comments.find({article: Session.get("selected_article")})
+    };
+
 
 }
 

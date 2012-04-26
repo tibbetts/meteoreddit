@@ -5,8 +5,8 @@
 <body>
   <div class="container_16">
     <div id="content" class="grid_12">
-    <h1>Meteoreddit</h1>
-      {{> articles}}
+      <h1>Meteoreddit</h1>
+      {{> main_content}}
     </div>
     <div id="sidebar" class="grid_4">
       {{> loginout }}
@@ -16,6 +16,14 @@
     <a href="http://github.com/tibbetts/meteoreddit">github.com/tibbetts/meteoreddit</a>
   </div>
 </body>
+
+<template name="main_content">
+  {{# if selected_article}}
+  {{> comments}}
+  {{else}}
+  {{> articles}}
+  {{/if}}
+</template>
 
 <template name="loginout">
   {{#if username}}
@@ -60,8 +68,33 @@
       <div class="arrow down"/>
     </div>
     <div class="article">
-      <a href="{{url}}" target="_blank"><span class="name">{{title}}</span></a>
+      <a href="{{url}}" target="_blank"><span class="name">{{title}}</span></a><br/>
+      <a href="#" class="comments">{{comment_count}} comments</a>
     </div>
   </div>
 </template>
 
+<template name="comments">
+  <div>
+    <a href="#" class="backs">back</a><br/>
+    {{#with article}}
+    {{> article}}
+    {{/with}}
+    <div>
+      {{#each comments}}
+        {{> comment}}
+      {{/each}}
+    </div>
+    <form id="comment">
+      <textarea id="text">
+      </textarea>
+      <input type="submit" value="post" id="post_comment"/>
+    </form>
+  </div>
+</template>
+
+<template name="comment">
+  <div>
+    {{text}}
+  </div>
+</template>
